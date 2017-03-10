@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    redirect_to product_path(@product)
+    redirect_to product_path(params[:product_id])
   end
 
   def destroy

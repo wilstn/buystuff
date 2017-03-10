@@ -9,14 +9,20 @@
       <h3><%= @product.name %></h3>
       <article><%= @product.description %></article>
       <br>
-      <p><%= number_to_currency @product.price %></p>
+      <p id="product-price"><span class="dollar"><%= @product.price %></span></p>
       <p>Left: <%= @product.remaining_quantity %></p>
     </section>
     <%#= link_to 'Buy', new_product_order_path(@product), class: "btn btn-primary" %>
     <%= form_for @order, :url => product_orders_path(@product) do |f| %>
-      <%= f.label :quantity %>
-      <%= f.number_field :quantity %>
-      <%= f.submit :Buy %>
+      <%= f.label :quantity, id: "quantity-label" %>
+      <%= f.number_field :quantity, class: "form-control col-5", id: "quantity-input", min: '0', max: @product.remaining_quantity %>
+      <hr>
+      <%= f.label :total_amount, id: "quantity-label" %>
+      <%= f.text_field :total_amount, class: "form-control col-5", id: "total-amount", :readonly => true %>
+      <br>
+      <p>
+        <%= f.submit :Buy, class: "btn btn-primary", id: "buy-button" %>
+      </p>
     <% end %>
   </div>
 </div>
