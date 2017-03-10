@@ -1,0 +1,11 @@
+<h1>All Products</h1>
+
+<% @products.each do |product| %>
+  <%= product.product_image %>
+  <%= product.name %>
+  <%= product.description %>
+  <%= product.price %>
+  <%= product.remaining_quantity %>
+<% end %>
+
+<%= paginate @products %>
