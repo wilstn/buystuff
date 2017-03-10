@@ -13,6 +13,7 @@ require 'ffaker'
     description: FFaker::DizzleIpsum.paragraph,
     price: rand(5.0...500.0).round(2),
     remaining_quantity: rand(20...100),
-    product_image: "http://placehold.it/250x250"
+    # product_image: "http://placehold.it/250x250"
+    product_image: "http://lorempixel.com/300/300/fashion/"
   )
 end
