@@ -4,13 +4,14 @@
   <% @products.each do |product| %>
     <div class="col-xs-3">
       <div class="card">
-        <img src="<%= product.product_image %>" alt="" class="card-img-top">
+        <%= link_to image_tag(product.product_image, class: "card-img-top"), product_path(product) %>
+        <!-- <img src="<%#= product.product_image %>" alt="" class="card-img-top"> -->
         <div class="card-block">
-          <h4 class="card-title">
-            <%= product.name %>
+          <p class="card-title">
+            <strong><%= product.name %></strong>
           </h4>
           <p class="card-text">
-            <%= product.description.truncate(100) %>
+            <%= product.description.truncate(50) %>
           </p>
           <p class="card-text">
             <%= number_to_currency product.price %>
@@ -19,7 +20,7 @@
             Left: <%= product.remaining_quantity %>
           </p>
           <p class="card-text">
-            <%= link_to 'View Details', product_path(product) %>
+            <%#= link_to 'View Details', product_path(product) %>
           </p>
         </div>
       </div>

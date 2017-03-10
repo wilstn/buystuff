@@ -1,3 +1,22 @@
-<h1>The product page</h1>
-<div class="row">
+
+<div class="row individual-product">
+  <div class="col-5 product-image">
+    <!-- <img src="<%#= @product.product_image %>" alt=""> -->
+    <img src="http://lorempixel.com/400/400/" alt="">
+  </div>
+  <div class="col-5 product-description">
+    <section>
+      <h3><%= @product.name %></h3>
+      <article><%= @product.description %></article>
+      <br>
+      <p><%= number_to_currency @product.price %></p>
+      <p>Left: <%= @product.remaining_quantity %></p>
+    </section>
+    <%#= link_to 'Buy', new_product_order_path(@product), class: "btn btn-primary" %>
+    <%= form_for @order, :url => product_orders_path(@product) do |f| %>
+      <%= f.label :quantity %>
+      <%= f.number_field :quantity %>
+      <%= f.submit :Buy %>
+    <% end %>
+  </div>
 </div>
