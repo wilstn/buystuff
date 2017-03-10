@@ -6,3 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'ffaker'
+
+100.times do
+  Product.create(
+    name: FFaker::Product.product,
+    description: FFaker::DizzleIpsum.paragraph,
+    price: rand(5.0...500.0).round(2),
+    remaining_quantity: rand(20...100),
+    product_image: "http://placehold.it/250x250"
+  )
+end
