@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hello from FFaker Store,</p>
+    <p>Your purchase of <%= @product.name %>
+      and payment of <%= number_to_currency @order.total_amount %>
+      was successfully completed.</p>
+    <p>You should receive your purchase in about 2 to 3 days.</p>
+    <p>Thanks for your support and have a great day!</p>
+  </body>
+</html>

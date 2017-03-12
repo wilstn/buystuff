@@ -27,6 +27,10 @@ class PaymentsController < ApplicationController
     if @payment.save
       @product.remaining_quantity = @product.remaining_quantity - @order.quantity
       @product.save
+
+      @user_email = @payment.email
+
+      UserMailer.sales(@user_email, @product, @order).deliver!
       redirect_to products_path
     end
   end
