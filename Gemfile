@@ -43,6 +43,7 @@ source 'https://rails-assets.org' do
 end
 
 gem 'stripe-rails'
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -11,13 +11,21 @@
 
   <body>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <%= link_to 'Home', products_path %>
+      <div class="home">
+        <%= link_to 'Home', products_path, :class => "btn btn-default" %>
+      </div>
+      <div class="sign-in">
+        <% if user_signed_in? %>
+          <%= current_user.email %> | <%= link_to 'Sign Out', destroy_user_session_path, :method => 'delete'%>
+        <% else %>
+          <%= link_to 'Sign In', new_user_session_path, :class => "btn btn-default" %>
+        <% end %>
+      </div>
     </nav>
     <div class="container">
       <div class="col-xs-10 offset-1">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
         <%= yield %>
       </div>
     </div>

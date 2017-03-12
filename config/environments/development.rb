@@ -54,4 +54,5 @@ Rails.application.configure do
 
   config.stripe.secret_key = 'sk_test_3vZRccmd9DUnEllPIDsXMLOi'
   config.stripe.publishable_key = 'pk_test_Se39oUhsaNpMbvzSYQa1Phxw'
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

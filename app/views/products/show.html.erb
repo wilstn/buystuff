@@ -9,7 +9,12 @@
       <h3><%= @product.name %></h3>
       <article><%= @product.description %></article>
       <br>
-      <p id="product-price"><span class="dollar"><%= @product.price %></span></p>
+      <% if user_signed_in? %>
+        <p>UP: <strike><span class="dollar"><%= @product.price %></span></strike></p>
+        <p id="product-price"><span class="dollar"><%= (@product.price*0.85).round(2) %></span></p>
+      <% else %>
+        <p id="product-price"><span class="dollar"><%= @product.price %></span></p>
+      <% end %>
       <p>Left: <%= @product.remaining_quantity %></p>
     </section>
 
