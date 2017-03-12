@@ -1,10 +1,16 @@
 class OrdersController < ApplicationController
   def new
     @order = Order.new
+    @product = Product.find(params[:product_id])
   end
 
   def create
-    redirect_to product_path(params[:product_id])
+    @product = Product.find(params[:product_id])
+    @order = @product.orders.new(order_params)
+
+    if @order.save
+      redirect_to new_product_order_payment_path(@product, @order)
+    end
   end
 
   def destroy

@@ -1,0 +1,29 @@
+<h3>Confirm payment</h3>
+  <%= form_for [@product, @order, @payment], :url => product_order_payments_path([@product, @order]) do |f| %>
+  <%= f.label :quantity %>
+  <%= f.number_field :quantity, class: "form-control col-6", :readonly => true %>
+
+  <%= f.label :total_amount %>
+  <%= f.number_field :total_amount, class: "form-control col-6", :readonly => true %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email, class: "form-control col-6" %>
+
+  <%= f.label :shipping_address %>
+  <%= f.text_field :shipping_address, class: "form-control col-6" %>
+  <br>
+  <%= f.submit "Pay", class: "btn btn-primary col-6" %>
+
+  <!-- <script
+    src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+    data-key="pk_test_Se39oUhsaNpMbvzSYQa1Phxw"
+    data-amount="<%= @order.total_amount*100 %>"
+    data-name="FFaker Store"
+    data-description="<%= @product.name %>"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-currency="sgd"
+    data-locale="auto"
+    data-allow-remember-me=false>
+  </script> -->
+
+  <% end %>

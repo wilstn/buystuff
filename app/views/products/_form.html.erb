@@ -1,7 +1,7 @@
-<% form_for @product do |f| %>
-  <%= f.text_field :name %>
-  <%= f.text_area :description %>
-  <%= f.text_field :price %>
-  <%= f.text_field :remaining_quantity %>
-  <%= f.submit 'Save' %>
+<%= bootstrap_form_for @product do |f| %>
+  <p><%= f.text_field :name %></p>
+  <p><%= f.text_area :description %></p>
+  <p><%= f.text_field :price %></p>
+  <p><%= f.text_field :remaining_quantity %></p>
+  <p><%= f.submit 'Save' %></p>
 <% end %>

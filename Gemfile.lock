@@ -45,6 +45,7 @@ GEM
     bootstrap (4.0.0.alpha6)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    bootstrap_forms (4.0.1)
     builder (3.2.3)
     byebug (9.0.6)
     coffee-rails (4.2.1)
@@ -156,6 +157,9 @@ GEM
       sprockets (>= 3.0.0)
     stripe (2.0.1)
       faraday (~> 0)
+    stripe-rails (0.3.1)
+      rails (>= 3)
+      stripe
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.6)
@@ -180,6 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap (~> 4.0.0.alpha6)
+  bootstrap_forms
   byebug
   coffee-rails (~> 4.2)
   ffaker
@@ -194,7 +199,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
-  stripe
+  stripe-rails
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
