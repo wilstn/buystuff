@@ -15,16 +15,14 @@ class PaymentsController < ApplicationController
                             :total_amount => params[:payment][:total_amount],
                             :quantity => params[:payment][:quantity],
                             :shipping_address => params[:payment][:shipping_address],
-                            :email => params[:payment][:email]
-                            # :email => stripe_email
+                            :email => params[:stripeEmail]
                           })
-    # stripe_email = params[:stripeEmail]
 
-    # Stripe::Charge.create(
-    #   amount: @order.total_amount*100,
-    #   currency: "sgd",
-    #   source: params[:stripeToken]
-    # )
+    Stripe::Charge.create(
+      amount: (@order.total_amount*100).to_i,
+      currency: "usd",
+      source: params[:stripeToken]
+    )
 
     if @payment.save
       @product.remaining_quantity = @product.remaining_quantity - @order.quantity
