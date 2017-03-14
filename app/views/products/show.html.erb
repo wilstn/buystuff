@@ -9,12 +9,13 @@
       <h3><%= @product.name %></h3>
       <article><%= @product.description %></article>
       <br>
-      <% if user_signed_in? %>
-        <p>UP: <strike><span class="dollar"><%= @product.price %></span></strike></p>
-        <p id="product-price"><span class="dollar"><%= (@product.price*0.85).round(2) %></span></p>
-      <% else %>
-        <p id="product-price"><span class="dollar"><%= @product.price %></span></p>
-      <% end %>
+      <!-- <#% if user_signed_in? %> -->
+        <!-- <p>UP: <strike><span class="dollar"><%= @product.price %></span></strike></p>
+        <p id="product-price"><span class="dollar"><%= (@product.price*0.85).round(2) %></span></p> -->
+      <!-- <#% else %> -->
+        <!-- <p id="product-price"><span class="dollar"><%= @product.price %></span></p> -->
+      <!-- <#% end %> -->
+      <p id="product-price"><span class="dollar"><%= applied_price(@product) %></span></p>
       <p>Left: <%= @product.remaining_quantity %></p>
     </section>
 
@@ -25,18 +26,7 @@
       <hr>
       <p>Total Amount: <span id="total-amount"></span></p>
 
-      <script
-        src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-        data-key="pk_test_Se39oUhsaNpMbvzSYQa1Phxw"
-        data-amount=""
-        data-name="FFaker Store"
-        data-description="<%= @product.name %>"
-        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-        data-currency="usd"
-        data-locale="auto"
-        data-shipping-address=true
-        data-allow-remember-me=false>
-      </script>
+      <%= render 'payment_script' %>
 
     <% end %>
 
