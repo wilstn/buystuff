@@ -1,16 +1,14 @@
 class OrdersController < ApplicationController
+  before_action :find_product, only: [:new, :create]
+
   def new
     @order = Order.new
-    @product = Product.find(params[:product_id])
   end
 
   def create
-    @product = Product.find(params[:product_id])
     @order = @product.orders.new(order_params)
 
-    @order.total_amount = @order.quantity * @product.price # if signed in is 15% discount
-    @order.email = params[:stripeEmail]
-    @order.shipping_address =  "#{params[:stripeShippingName]}\n#{params[:stripeShippingAddressLine1]}\n#{params[:stripeShippingAddressZip]}\n#{params[:stripeShippingAddressState]}\n#{params[:stripeShippingAddressCity]}\n#{params[:stripeShippingAddressCountry]}"
+    @order.populate_fields(user_signed_in?, @product.price, params)
 
     Stripe::Charge.create(
       amount: (@order.total_amount*100).to_i,
@@ -19,7 +17,8 @@ class OrdersController < ApplicationController
     )
 
     if @order.save
-      @product.remaining_quantity = @product.remaining_quantity - @order.quantity
+      # @product.remaining_quantity = @product.remaining_quantity - @order.quantity
+      @product.update_inventory(@order.quantity)
       @product.save
       # UserMailer.sales(@order.email, @product, @order).deliver!
       redirect_to product_path(@product)
@@ -30,5 +29,9 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:product_id, :quantity, :total_amount, :shipping_address, :email, :user_id)
+  end
+
+  def find_product
+    @product = Product.find(params[:product_id])
   end
 end
