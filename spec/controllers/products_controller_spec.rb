@@ -10,7 +10,7 @@ RSpec.describe ProductsController, :type => :controller do
   end
 
   describe "GET #show" do
-    let(:product) {Product.create(name: "product name", description: "product description", price: 1, remaining_quantity: 10)}
+    let(:product) { Product.create(name: "product name", description: "product description", price: 1, remaining_quantity: 10) }
 
     it "shows the individual product page" do
       get :show, params: { id: product.id }
@@ -28,8 +28,20 @@ RSpec.describe ProductsController, :type => :controller do
   describe "POST #create" do
     it "should create a new product" do
       expect do
-        post :create, params: {product: {name: "product name", description: "product description", price: 1, remaining_quantity: 10}}
+        post :create, params: {
+          product: {
+            name: "product name",
+            description: "product description",
+            price: 1,
+            remaining_quantity: 10
+            }
+          }
       end.to change {Product.count}.from(0).to(1)
+    end
+
+    it "should render new if fail to create" do
+      post :create, params: { product: {name: "",description: "",price: "",remaining_quantity: ""} }
+      should render_template('new')
     end
   end
 
@@ -50,6 +62,11 @@ RSpec.describe ProductsController, :type => :controller do
 
       expect(Product.find(product.id).name).to eq("product name2")
     end
+
+    it "should render edit if update fail" do
+      put :update, params: {id: product.id, product: {name: ""}}
+      should render_template('edit')
+    end
   end
 
   describe "DELETE #destroy" do
@@ -57,7 +74,7 @@ RSpec.describe ProductsController, :type => :controller do
 
     it "destroys selected product" do
       product = Product.create(name: "product name", description: "product description", price: 1, remaining_quantity: 10)
-      
+
       expect do
         delete :destroy, params: { id: product.id }
       end.to change {Product.count}.from(1).to(0)
