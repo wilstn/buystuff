@@ -8,12 +8,11 @@ class OrdersController < ApplicationController
     @product = Product.find(params[:product_id])
     @order = @product.orders.new(order_params)
 
+    @order.total_amount = @order.quantity * @product.price
+
     if @order.save
       redirect_to new_product_order_payment_path(@product, @order)
     end
-  end
-
-  def destroy
   end
 
   private

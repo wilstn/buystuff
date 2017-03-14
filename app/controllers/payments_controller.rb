@@ -2,9 +2,10 @@ class PaymentsController < ApplicationController
   def new
     @product = Product.find(params[:product_id])
     @order = Order.find(params[:order_id])
-    @payment = Payment.new({:order_id => params[:order_id], :product_id => params[:product_id]})
-    @payment.quantity = Order.find(params[:order_id]).quantity
-    @payment.total_amount = Order.find(params[:order_id]).total_amount
+    @payment = Payment.new({:order_id => params[:order_id],
+                            :product_id => params[:product_id],
+                            :quantity => @order.quantity,
+                            :total_amount => @order.total_amount})
   end
 
   def create
@@ -35,9 +36,9 @@ class PaymentsController < ApplicationController
     end
   end
 
-  private
-
-  def payment_params
-    params.require(:payment).permit(:product_id, :quantity, :total_amount, :shipping_address, :email, :user_id)
-  end
+  # private
+  #
+  # def payment_params
+  #   params.require(:payment).permit(:product_id, :quantity, :total_amount, :shipping_address, :email, :user_id)
+  # end
 end
