@@ -19,12 +19,24 @@
     </section>
 
     <%= form_for @order, :url => product_orders_path(@product) do |f| %>
+
       <%= f.label :quantity %>
       <%= f.number_field :quantity, class: "form-control col-5", id: "quantity-input", min: '0', max: @product.remaining_quantity %>
       <hr>
       <p>Total Amount: <span id="total-amount"></span></p>
-      <br>
-      <%= f.submit :Buy, class: "btn btn-primary col-12", id: "buy-button" %>
+
+      <script
+        src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+        data-key="pk_test_Se39oUhsaNpMbvzSYQa1Phxw"
+        data-amount=""
+        data-name="FFaker Store"
+        data-description="<%= @product.name %>"
+        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+        data-currency="usd"
+        data-locale="auto"
+        data-shipping-address=true
+        data-allow-remember-me=false>
+      </script>
 
     <% end %>
 

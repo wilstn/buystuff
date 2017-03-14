@@ -8,10 +8,21 @@ class OrdersController < ApplicationController
     @product = Product.find(params[:product_id])
     @order = @product.orders.new(order_params)
 
-    @order.total_amount = @order.quantity * @product.price
+    @order.total_amount = @order.quantity * @product.price # if signed in is 15% discount
+    @order.email = params[:stripeEmail]
+    @order.shipping_address =  "#{params[:stripeShippingName]}\n#{params[:stripeShippingAddressLine1]}\n#{params[:stripeShippingAddressZip]}\n#{params[:stripeShippingAddressState]}\n#{params[:stripeShippingAddressCity]}\n#{params[:stripeShippingAddressCountry]}"
+
+    Stripe::Charge.create(
+      amount: (@order.total_amount*100).to_i,
+      currency: "usd",
+      source: params[:stripeToken]
+    )
 
     if @order.save
-      redirect_to new_product_order_payment_path(@product, @order)
+      @product.remaining_quantity = @product.remaining_quantity - @order.quantity
+      @product.save
+      # UserMailer.sales(@order.email, @product, @order).deliver!
+      redirect_to product_path(@product)
     end
   end
 
