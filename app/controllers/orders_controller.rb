@@ -17,9 +17,7 @@ class OrdersController < ApplicationController
     )
 
     if @order.save
-      # @product.remaining_quantity = @product.remaining_quantity - @order.quantity
       @product.update_inventory(@order.quantity)
-      @product.save
       # UserMailer.sales(@order.email, @product, @order).deliver!
       redirect_to product_path(@product)
     end
