@@ -8,16 +8,11 @@ class OrdersController < ApplicationController
   def create
     @order = @product.orders.new(order_params)
 
-    @order.populate_fields(user_signed_in?, @product.price, params)
-
-    Stripe::Charge.create(
-      amount: (@order.total_amount*100).to_i,
-      currency: "usd",
-      source: params[:stripeToken]
-    )
+    @order.populate_fields(user_signed_in?, params)
+    # @order.stripe_transaction(params[:stripeToken])
 
     if @order.save
-      @product.update_inventory(@order.quantity)
+      # @product.update_inventory(@order.quantity)
       # UserMailer.sales(@order.email, @product, @order).deliver!
       redirect_to product_path(@product)
     end
