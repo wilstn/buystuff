@@ -7,9 +7,9 @@ class Order < ApplicationRecord
 
   def populate_fields(user_signed_in, product_price, params)
 
-    product_price = product_price * 0.85 if user_signed_in
+    product_price = product_price * ENV["discount_rate"].to_f if user_signed_in
 
-    self.total_amount = self.quantity * product_price
+    self.total_amount = self.quantity * product_price.round(2)
 
     self.email = params[:stripeEmail]
 
