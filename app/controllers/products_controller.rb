@@ -3,12 +3,18 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.page(params[:page]).per(9)
+
+    if user_signed_in?
+      @cart = find_cart ? find_cart : Cart.create(user_id: current_user.id)
+    end
   end
 
   def show
     @order = Order.new
 
-    @cart = Cart.find_by(user_id: current_user.id) ? Cart.find_by(user_id: current_user.id) : Cart.create(user_id: current_user.id) if user_signed_in?
+    if user_signed_in?
+      @cart = find_cart ? find_cart : Cart.create(user_id: current_user.id)
+    end
   end
 
   def new
@@ -49,5 +55,9 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find(params[:id])
+  end
+
+  def find_cart
+    Cart.find_by(user_id: current_user.id)
   end
 end
