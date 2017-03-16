@@ -15,7 +15,7 @@
       <p>Left: <%= @product.remaining_quantity %></p>
     </section>
 
-    <%= form_for @order, :url => product_orders_path(@product) do |f| %>
+    <%= form_for @order, :url => cart_orders_path(@cart) do |f| %>
 
       <%= f.label :quantity %>
       <%= f.number_field :quantity, class: "form-control col-5", id: "quantity-input", min: '0', max: @product.remaining_quantity %>

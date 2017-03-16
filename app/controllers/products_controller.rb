@@ -7,6 +7,8 @@ class ProductsController < ApplicationController
 
   def show
     @order = Order.new
+
+    @cart = Cart.find_by(user_id: current_user.id) ? Cart.find_by(user_id: current_user.id) : Cart.create(user_id: current_user.id)
   end
 
   def new

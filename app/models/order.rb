@@ -8,8 +8,8 @@ class Order < ApplicationRecord
 
   def populate_fields(user_signed_in, params)
     self.fill_total_amount(user_signed_in)
-    self.fill_email(params[:stripeEmail])
-    self.fill_shipping_address(params)
+    # self.fill_email(params[:stripeEmail])
+    # self.fill_shipping_address(params)
   end
 
   def fill_total_amount(user_signed_in)
