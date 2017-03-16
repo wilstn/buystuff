@@ -1,13 +1,16 @@
 class OrdersController < ApplicationController
-  before_action :find_product, only: [:new, :create]
 
   def new
+    @product = Product.find(params[:product_id])
     @order = Order.new
   end
 
   def create
+    @product = Product.find(params[:order][:product_id])
     @order = @product.orders.new(order_params)
 
+    @order.cart_id = params[:cart_id]
+    @order.user_id = current_user.id
     @order.populate_fields(user_signed_in?, params)
     # @order.stripe_transaction(params[:stripeToken])
 
@@ -24,7 +27,4 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:product_id, :quantity, :total_amount, :shipping_address, :email, :user_id)
   end
 
-  def find_product
-    @product = Product.find(params[:product_id])
-  end
 end

@@ -1,0 +1,22 @@
+<h2>All Carts</h2>
+<% @carts.each do |cart| %>
+  <table class="table">
+    <tr>
+      <th>User</th>
+      <th>Order Id</th>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Sub Total</th>
+    </tr>
+    <% cart.orders.each do |order| %>
+    <tr>
+      <td><%= order.user.email %></td>
+      <td><%= order.id %></td>
+      <td><%= order.product.name %></td>
+      <td><%= order.quantity %></td>
+      <td><%= order.total_amount %></td>
+    </tr>
+    <% end %>
+  </table>
+  <br>
+<% end %>

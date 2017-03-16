@@ -14,17 +14,18 @@
 
       <p>Left: <%= @product.remaining_quantity %></p>
     </section>
+    <% if user_signed_in? %>
+      <%= form_for @order, :url => cart_orders_path(@cart) do |f| %>
 
-    <%= form_for @order, :url => cart_orders_path(@cart) do |f| %>
+        <%= f.label :quantity %>
+        <%= f.number_field :quantity, class: "form-control col-5", id: "quantity-input", min: '0', max: @product.remaining_quantity %>
+        <%= f.hidden_field :product_id, value: @product.id %>
+        <hr>
+        <p>Total Amount: <span id="total-amount"></span></p>
+        <%= f.submit "Add to cart" %>
+        <%#= render 'payment_script' %>
 
-      <%= f.label :quantity %>
-      <%= f.number_field :quantity, class: "form-control col-5", id: "quantity-input", min: '0', max: @product.remaining_quantity %>
-      <hr>
-      <p>Total Amount: <span id="total-amount"></span></p>
-      <%= f.submit "Add to cart" %>
-      <%#= render 'payment_script' %>
-
+      <% end %>
     <% end %>
-
   </div>
 </div>
