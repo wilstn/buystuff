@@ -9,12 +9,8 @@
       <h3><%= @product.name %></h3>
       <article><%= @product.description %></article>
       <br>
-      <% if user_signed_in? %>
-        <p>UP: <strike><span class="dollar"><%= full_price(@product) %></span></strike></p>
-        <p id="product-price"><span class="dollar"><%= discount_price(@product) %></span></p>
-      <% else %>
-        <p id="product-price"><span class="dollar"><%= discount_price(@product) %></span></p>
-      <% end %>
+
+      <%= discount_if_logged_in(user_signed_in?).html_safe %>
 
       <p>Left: <%= @product.remaining_quantity %></p>
     </section>
