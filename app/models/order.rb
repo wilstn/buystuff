@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :product
+  belongs_to :cart
 
   validates_presence_of :product_id
   validates_presence_of :quantity
