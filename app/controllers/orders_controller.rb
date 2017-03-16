@@ -9,16 +9,9 @@ class OrdersController < ApplicationController
     @product = Product.find(params[:order][:product_id])
     @order = @product.orders.new(order_params)
 
-    @order.cart_id = params[:cart_id]
-    @order.user_id = current_user.id
-    @order.populate_fields(user_signed_in?, params)
-    # @order.stripe_transaction(params[:stripeToken])
+    @order.populate_fields(current_user, params)
 
-    if @order.save
-      # @product.update_inventory(@order.quantity)
-      # UserMailer.sales(@order.email, @product, @order).deliver!
-      redirect_to product_path(@product)
-    end
+    redirect_to product_path(@product)
   end
 
   private

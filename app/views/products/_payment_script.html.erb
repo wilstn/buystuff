@@ -1,12 +1,13 @@
 <script
   src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
   data-key="pk_test_Se39oUhsaNpMbvzSYQa1Phxw"
-  data-amount=""
+  data-amount=<%= @cart_total*100 %>
   data-name="FFaker Store"
-  data-description="<%= @product.name %>"
+  data-description="Payment for cart items"
   data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
   data-currency="usd"
   data-locale="auto"
-  data-shipping-address=true
-  data-allow-remember-me=false>
+  data-shipping-address=false
+  data-allow-remember-me=false
+  data-email=<%= current_user.email %>>
 </script>

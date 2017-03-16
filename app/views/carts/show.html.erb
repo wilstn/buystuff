@@ -16,4 +16,8 @@
       <td><%= order.total_amount %></td>
     </tr>
   <% end %>
-  <%#= link_to "Checkout Cart",  %>
+</table>
+<h4>Total amount: <%= number_to_currency @cart_total %></h4>
+<%= form_for @cart, url: cart_payments_path(@cart), method: :post do |f| %>
+  <%= render 'products/payment_script' %>
+<% end %>

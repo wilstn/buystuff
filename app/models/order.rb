@@ -7,29 +7,33 @@ class Order < ApplicationRecord
   validates_presence_of :quantity
   validates_presence_of :total_amount
 
-  def populate_fields(user_signed_in, params)
-    self.fill_total_amount(user_signed_in)
-    # self.fill_email(params[:stripeEmail])
-    # self.fill_shipping_address(params)
+  def populate_fields(current_user, params)
+    self.fill_total_amount
+    self.fill_cart_id(params[:cart_id])
+    self.fill_user_id(current_user.id)
+    self.save
   end
 
-  def fill_total_amount(user_signed_in)
-    product_price = user_signed_in ? self.product.price * ENV["discount_rate"].to_f : product.price
-
-    self.total_amount = self.quantity * product_price.round(2)
+  def fill_total_amount
+    self.total_amount = self.quantity * (self.product.price * ENV["discount_rate"].to_f).round(2)
   end
 
-  # not used
+  def fill_cart_id(cart_id)
+    self.cart_id = cart_id
+  end
+
+  def fill_user_id(user_id)
+    self.user_id = user_id
+  end
+
   # def fill_email(email_params)
   #   self.email = email_params
   # end
 
-  # not used
   # def fill_shipping_address(params)
   #   self.shipping_address =  "#{params[:stripeShippingName]}\n#{params[:stripeShippingAddressLine1]}\n#{params[:stripeShippingAddressZip]}\n#{params[:stripeShippingAddressState]}\n#{params[:stripeShippingAddressCity]}\n#{params[:stripeShippingAddressCountry]}"
   # end
 
-  # not used
   # def stripe_transaction(stripeToken)
   #   Stripe::Charge.create(
   #     amount: (self.total_amount*100).to_i,

@@ -4,6 +4,7 @@ class CartsController < ApplicationController
   end
 
   def show
-    @cart = Cart.find_by(user_id: current_user.id)
+    @cart = Cart.find(params[:id])
+    @cart_total = @cart.calculate_total
   end
 end
