@@ -14,6 +14,12 @@ class OrdersController < ApplicationController
     redirect_to product_path(@product)
   end
 
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+    redirect_to cart_path(params[:cart_id])
+  end
+
   private
 
   def order_params

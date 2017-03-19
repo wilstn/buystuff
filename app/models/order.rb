@@ -26,20 +26,4 @@ class Order < ApplicationRecord
     self.user_id = user_id
   end
 
-  # def fill_email(email_params)
-  #   self.email = email_params
-  # end
-
-  # def fill_shipping_address(params)
-  #   self.shipping_address =  "#{params[:stripeShippingName]}\n#{params[:stripeShippingAddressLine1]}\n#{params[:stripeShippingAddressZip]}\n#{params[:stripeShippingAddressState]}\n#{params[:stripeShippingAddressCity]}\n#{params[:stripeShippingAddressCountry]}"
-  # end
-
-  # def stripe_transaction(stripeToken)
-  #   Stripe::Charge.create(
-  #     amount: (self.total_amount*100).to_i,
-  #     currency: "usd",
-  #     source: stripeToken
-  #   )
-  # end
-
 end

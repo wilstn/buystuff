@@ -4,9 +4,9 @@ class PaymentsController < ApplicationController
     @cart = Cart.find_by(user_id: current_user.id)
 
     begin
-      # @cart.stripe_pay(params)
-      blah.hello
-    rescue
+      @cart.stripe_pay(params)
+    rescue Stripe::StripeError => e
+      puts e
       flash[:notice] = "Transaction failed"
     else
       @cart.save_transactions

@@ -16,7 +16,7 @@ class Cart < ApplicationRecord
   def save_transactions
     self.orders.each do |order|
       Payment.create(cart_id: self.id, order_id: order.id, user_id: order.user.id)
-      
+
       order.product.update_inventory(order.quantity)
     end
   end

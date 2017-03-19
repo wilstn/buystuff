@@ -9,4 +9,12 @@ RSpec.describe Product, type: :model do
     it { should validate_presence_of(:remaining_quantity) }
   end
 
+  describe 'update_inventory method' do
+    let(:product) { Product.create() }
+
+    it "should update product quantity on payment success" do
+
+    end
+  end
+
 end
